@@ -26,7 +26,7 @@ setup(name="dcps",
       maintainer_email="sgoadhouse@virginia.edu",
       license='MIT',
       keywords=['Rigol', 'DP800', 'DP832A', 'DL3000', 'DL3031A', 'AimTTI', 'BK', '9115', 'Keysight', 'Agilent', 'Keithley', 'ITECH',
-                'E3642A', 'E364xA', '6220', '6221', '2182', '2182A', '2400', 'DMM6500', 'DAQ6510', '6500C/D',
+                'Riden', 'RD6030-Max', 'E3642A', 'E364xA', '6220', '6221', '2182', '2182A', '2400', 'DMM6500', 'DAQ6510', '6500C/D',
                 'PyVISA', 'VISA', 'SCPI', 'INSTRUMENT'],
       classifiers=[
         'Development Status :: 4 - Beta',
@@ -42,7 +42,8 @@ setup(name="dcps",
         'Topic :: Software Development :: Libraries :: Python Modules'], 
      install_requires=[
          'pyvisa>=1.9.0,!=1.11.0',
-         'pyvisa-py>=0.4.1'
+         'pyvisa-py>=0.4.1',
+         'pyserial>=3.0'
      ],
      packages=["dcps"],
      include_package_data=True,

@@ -23,6 +23,7 @@ As new power supplies are added, they should each have their own sub-package.
 Other contributors have added support for the following DC power supplies:
 * ITECH 6500C/D series 2 quadrant DC Power Supply/load
 * KORAD KA series *(tested with Velleman PS3005D)*
+* Riden RD6030-Max *(Modbus RTU over USB serial)*
 
 In addition to the above traditional power supplies, a few other
 instruments have been added that have a similar control paradigm such
@@ -68,6 +69,7 @@ pip install dcps
 * [pyvisa 1.9](https://pyvisa.readthedocs.io/en/1.9.0/)
    * *avoid 1.11.0 because it fails to work on Fedora/CentOS/etc.*
 * [pyvisa-py 0.4.1](https://github.com/pyvisa/pyvisa-py/tree/48fbf9af00f970452c4af4b32a1a84fb89ee74dc/)
+* [pyserial 3.0 or newer](https://pyserial.readthedocs.io/) (required for USB serial devices such as the Riden RD6030-Max)
 
 With the use of pyvisa-py, should not have to install the National
 Instruments NIVA VISA driver.
@@ -167,6 +169,28 @@ rigol.setLocal()
 rigol.close()
 ```
 
+### Riden RD6030-Max
+
+The RD6030-Max communicates over its USB serial interface using Modbus RTU.
+The resource string is the VISA serial resource assigned to the device (for
+example, `ASRL3::INSTR` on Windows). PyVISA opens the port at 115200 baud by
+default; serial settings can be overridden with constructor keyword arguments.
+Voltage and current registers use 100 counts per unit by default. Override
+`voltage_scale` or `current_scale` if required by the device firmware.
+
+```python
+from dcps import RidenRD6030Max
+
+psu = RidenRD6030Max("ASRL3::INSTR")
+psu.open()
+psu.setVoltage(12.0)
+psu.setCurrent(1.5)
+psu.outputOn()
+print(psu.measureVoltage(), psu.measureCurrent())
+psu.outputOff()
+psu.close()
+```
+
 ## Taking it Further
 This implements a small subset of available commands.
 
@@ -196,4 +220,3 @@ and the
 
 # Contact
 Please send bug reports or feedback to [Stephen Goadhouse](https://github.com/sgoadhouse)
-

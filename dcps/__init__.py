@@ -43,3 +43,6 @@ from dcps.IT6500C import IT6500C
 
 # Support of the KORAD KA-series psus
 from dcps.KoradKAseries import KAseries
+
+# Support of Riden RD6030-Max power supplies
+from dcps.RidenRD6030Max import RidenRD6030Max
